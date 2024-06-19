@@ -7,6 +7,22 @@ const config: Config = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    container: {
+      center: true,
+  },
+  screens: {
+      xs: '320px',
+      sm: '375px',
+      smd: '425px',
+      smdd: '500px',
+      xmd: '550px',
+      md: '744px',
+      lgsm: '1024px',
+      lg: '1080px',
+      xl: '1200px',
+      xxl: '1440px',
+      xxxl: '2560px',
+  },
     colors: {
       primario: {
           20: '#0386e6',

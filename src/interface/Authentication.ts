@@ -7,3 +7,15 @@ export class LoginInterface{
     @IsString()
     password: string
 }
+
+export class RegisterInterface{
+    @IsString()
+    name: string
+    @IsString()
+    username: string
+    @IsString()
+    lastName: string
+    @IsString()
+    password: string
+
+}
