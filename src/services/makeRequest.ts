@@ -13,8 +13,9 @@ export interface RequestResponse<T> {
       const { data: response } = await clientAxios.post(endpoint, {
         ...body,
       });
+      console.log(response)
       return {
-        response: response.data as T,
+        response: response as T,
         error: false,
       };
     } catch (e: any) {

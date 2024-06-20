@@ -4,8 +4,9 @@ import Input from '@/components/Input/Input';
 import { useForm, Controller } from 'react-hook-form';
 import Button from '../Button/Button';
 import {  loginService } from '@/services/authentication';
+import { useSessionStorage } from '@/hooks/useSessionStorage';
 const LoginForm = () => {
-
+    const [token, setToken]=useSessionStorage<any>('login',{})
     const {
         getValues,
         control,
@@ -15,6 +16,7 @@ const LoginForm = () => {
         const data = getValues();
 
         const {response}=await loginService(data)
+        setToken(response.token)
         console.log(response)
     }
     return (

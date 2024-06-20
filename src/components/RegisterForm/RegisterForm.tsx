@@ -131,7 +131,7 @@ const RegisterForm = () => {
                     control={control}
                 />
             </div>
-            <div className='!w-[33px]'>
+            <div className='w-full'>
                 <Button className='mt-5 ' disabled={!isValid} onClick={onSubmit}> Registrarme</Button>
             </div>
         </div>
