@@ -1,23 +1,22 @@
 'use client'
-import Header from '@/components/Header/header'
 import ImageLoader from '@/components/ImageLoader'
 import LoginForm from '@/components/LoginForm/LoginForm';
-import useProtectedRoutes from '@/hooks/useProtectedRoutes';
+import PublicLayout from '@/components/layout/PublicLayout';
+
 const LoginPage = () => {
-  useProtectedRoutes()
   return (
+    <PublicLayout>
     <div className='container '>
-      <Header />
-      <div className='flex w-full justify-evenly bg-gradient-to-r from-white to-[#F1F4FC] h-screen'>
-      <div className='w-full flex justify-center mt-[130px]'>
+      <div className='flex md:flex-row flex-col w-full justify-evenly bg-gradient-to-r from-white to-[#F1F4FC] h-screen'>
+      <div className='w-full flex justify-center md:mt-[130px] mt-16'>
           <LoginForm/>
         </div>
-        <div className='m-auto w-full flex flex-col items-start   justify-start'>
-          <ImageLoader src="/images/login.jpeg" className="w-[500px] h-[550px] " />
+        <div className=' w-full flex flex-col items-start   justify-start'>
+          <ImageLoader src="/images/login.jpeg" className="md:w-[500px] md:h-[550px] " />
         </div>
-        
       </div>
     </div>
+    </PublicLayout>
   )
 }
 

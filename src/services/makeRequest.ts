@@ -8,7 +8,7 @@ export interface RequestResponse<T> {
   
   const makeRequest = async <T>(
     endpoint: string,
-    body: any,
+    body?: any,
     method: Method = "GET",
     token?: string
   ): Promise<RequestResponse<T>> => {

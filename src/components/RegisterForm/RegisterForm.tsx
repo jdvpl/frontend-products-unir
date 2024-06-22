@@ -4,27 +4,42 @@ import { Controller, useForm } from 'react-hook-form';
 import Input from '../Input/Input';
 import Button from '../Button/Button';
 import { registerService } from '@/services/authentication';
+import { useSessionStorage } from '@/hooks/useSessionStorage';
+import { SessionStorageKeys } from '@/session';
+import { useRouter } from 'next/navigation';
+import { routes } from '@/routes';
 
 const RegisterForm = () => {
+    const router=useRouter()
     const {
         getValues,
         control,
+        setError,
         formState: { errors, isValid },
     } = useForm<RegisterInterface>({ mode: 'onChange' });
+    const [, setToken]=useSessionStorage<any>(SessionStorageKeys.login.key,"")
 
     const onSubmit = async () => {
         const data = getValues();
-        const { response } = await registerService(data)
-        console.log(data)
+        const { response,error } = await registerService(data)
+        if(error){
+            setError('password',{
+                type:'custom',
+                message:response.message
+            })
+            return;
+        }
+        setToken(response.token);
+        router.push(routes.products)
     }
     return (
-        <div className="rounded-xl bg-white p-2 w-[400px] smd:w-[100%] md:w-[73%] lgsm:w-[90%] lg:w-[100%] xl:w-[73%] xxl:w-[400px] mt-[68px] md:px-4   px-3 shadow  ">
+        <div className="rounded-xl bg-white p-2 w-full  md:w-full lgsm:w-[90%] lg:w-[100%] xl:w-[73%] xxl:w-[400px] mt-[68px] md:px-4   px-3 shadow  ">
             <h2 className='py-4 text-center font-semibold text-[30px]'>Ingresa tus datos</h2>
             <Controller
                 rules={{ required: true }}
                 render={({ field }) => (
                     <Input
-                        helperText={errors.name ? 'Este campo es requerido' : 'Digita tu nombre'}
+                        helperText={errors.name?.message}
                         error={!!errors.name}
                         onPaste={(e: ClipboardEvent<HTMLInputElement>) => {
                             e.preventDefault();
@@ -51,7 +66,7 @@ const RegisterForm = () => {
                     rules={{ required: true }}
                     render={({ field }) => (
                         <Input
-                            helperText={errors.lastName ? 'Este campo es requerido' : 'Digita tu nombre'}
+                            helperText={errors.lastName?.message}
                             error={!!errors.lastName}
                             onPaste={(e: ClipboardEvent<HTMLInputElement>) => {
                                 e.preventDefault();
@@ -80,7 +95,7 @@ const RegisterForm = () => {
                     rules={{ required: true }}
                     render={({ field }) => (
                         <Input
-                            helperText={errors.username && 'Este campo es requerido'}
+                            helperText={errors.username?.message}
                             error={!!errors.username}
                             onPaste={(e: ClipboardEvent<HTMLInputElement>) => {
                                 e.preventDefault();
@@ -109,7 +124,7 @@ const RegisterForm = () => {
                     rules={{ required: true }}
                     render={({ field }) => (
                         <Input
-                            helperText={errors.password && 'Este campo es requerido'}
+                            helperText={errors.password?.message}
                             error={!!errors.password}
                             onPaste={(e: ClipboardEvent<HTMLInputElement>) => {
                                 e.preventDefault();

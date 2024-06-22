@@ -1,18 +1,29 @@
-'use client'
+"use client";
 
-import { SessionStorageKeys } from "@/session"
-import { useSessionStorage } from "./useSessionStorage"
-import { useRouter } from "next/navigation"
-import { routes } from "@/routes"
+import { SessionStorageKeys } from "@/session";
+import { useSessionStorage } from "./useSessionStorage";
+import { usePathname, useRouter } from "next/navigation";
+import { publicRoutes, routes } from "@/routes";
+import { useEffect } from "react";
+import { decodeJwt } from "@/utils";
 
-const useProtectedRoutes=()=>{
-    const [token]=useSessionStorage<any>(SessionStorageKeys.login.key,"")
-    const router=useRouter()
-    if(!token){
-        router.push(routes.login)
+const useProtectedRoutes = () => {
+  const [token] = useSessionStorage<any>(SessionStorageKeys.login.key, "");
+  const router = useRouter();
+  const pathname = usePathname();
+   
+  const data=decodeJwt(token);
+  console.log("🚀 ~ useEffect ~ data:", data)
+  useEffect(() => {
+    if (token && decodeJwt(token)) {
+      if (publicRoutes.includes(pathname)) {
+        router.push(routes.products);
+      }
+    } else {
+      if (!publicRoutes.includes(pathname)) {
+        router.push(routes.login);
+      }
     }
-    if(token){
-        router.push(routes.products)
-    }
-}
+  }, [token, pathname, router]);
+};
 export default useProtectedRoutes;

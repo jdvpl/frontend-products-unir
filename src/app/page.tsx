@@ -1,14 +1,11 @@
 'use client'
 import BannerHome from "@/components/BannerHome/BannerHome";
-import Header from "@/components/Header/header";
-import useProtectedRoutes from "@/hooks/useProtectedRoutes";
+import PublicLayout from "@/components/layout/PublicLayout";
 
 export default function Home() {
-  useProtectedRoutes()
   return (
-    <main >
-      <Header/>
+    <PublicLayout >
       <BannerHome/>
-    </main>
+    </PublicLayout>
   );
 }

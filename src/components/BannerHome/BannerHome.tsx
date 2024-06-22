@@ -21,11 +21,11 @@ const BannerHome = () => {
                 <p className="text-lg text-primario-700 mb-6">
                     Calidad garantizada y precios competitivos. ¡Haz tu compra hoy y disfruta de grandes beneficios!
                 </p>
-                <div className="flex justify-center space-x-4">
-                    <button className="px-4 py-2 bg-primario-300 text-white rounded-md shadow-md hover:bg-primario-200 transition duration-300">
+                <div className="flex md:flex-row flex-col  gap-4 justify-center  mx-4">
+                    <button className=" py-2 px-5 bg-primario-300 text-white rounded-md shadow-md hover:bg-primario-200 transition duration-300">
                         Comprar Ahora
                     </button>
-                    <button className="px-4 py-2 bg-rojo-100 text-white rounded-md shadow-md hover:bg-rojo-30 transition duration-300">
+                    <button className=" px-5 py-2 bg-rojo-100 text-white rounded-md shadow-md hover:bg-rojo-30 transition duration-300">
                         Más Información
                     </button>
                 </div>

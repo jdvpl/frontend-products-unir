@@ -1,24 +1,23 @@
 'use client'
-import Header from '@/components/Header/header'
 import ImageLoader from '@/components/ImageLoader'
 import RegisterForm from '@/components/RegisterForm/RegisterForm';
-import useProtectedRoutes from '@/hooks/useProtectedRoutes';
+import PublicLayout from '@/components/layout/PublicLayout';
 import React from 'react'
 
 const RegisterPage = () => {
-  useProtectedRoutes()
   return (
+    <PublicLayout>
     <div className='container'>
-      <Header />
-      <div className='flex w-full justify-evenly'>
-        <div className='m-auto w-full flex items-center h-[80vh] justify-center'>
-          <ImageLoader src="/images/register.jpeg" className="w-[400px] h-[400px] " />
+      <div className='flex md:flex-row flex-col w-full justify-center'>
+        <div className='m-auto w-full flex items-center mt-20 justify-center'>
+          <ImageLoader src="/images/register.jpeg" className="md:w-[400px] md:h-[400px] " />
         </div>
         <div className='w-full'>
           <RegisterForm />
         </div>
       </div>
     </div>
+    </PublicLayout>
   )
 }
 

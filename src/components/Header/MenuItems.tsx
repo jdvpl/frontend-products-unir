@@ -13,7 +13,6 @@ export const MenuItem: FC<MenuLinkProps> = ({ children, href, className }) => {
       <Link href={ href} passHref className={`flex items-center justify-center h-[48px] cursor-pointer text-primario-900 font-medium hover:text-primario-100 ${className} whitespace-nowrap`}>
             {children}
       </Link>
-
   </li>
   )
 }

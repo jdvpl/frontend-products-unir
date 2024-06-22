@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation';
 import { routes } from '@/routes';
 import { SessionStorageKeys } from '@/session';
 const LoginForm = () => {
-    const [token, setToken]=useSessionStorage<any>(SessionStorageKeys.login.key,"")
+    const [, setToken]=useSessionStorage<any>(SessionStorageKeys.login.key,"")
     const router=useRouter()
     const {
         getValues,
@@ -27,14 +27,12 @@ const LoginForm = () => {
             })
             return;
         }
-        
         setToken(response.token);
         router.push(routes.products)
-        
     }
     return (
         <div>
-            <div className="rounded-xl bg-white p-2 w-[400px] smd:w-[100%] md:w-[73%] lgsm:w-[90%] lg:w-[100%] xl:w-[73%] xxl:w-[400px]  md:px-4   px-3 shadow  ">
+            <div className="rounded-xl bg-white p-2 w-full smd:w-[100%] md:w-[73%] lgsm:w-[90%] lg:w-[100%] xl:w-[73%] xxl:w-[400px]  md:px-4   px-3 shadow  ">
 
                 <h2 className='py-4 text-center font-semibold text-[30px]'>Ingresa tus datos</h2>
                 <Controller
@@ -85,7 +83,7 @@ const LoginForm = () => {
                         control={control}
                     />
                 </div>
-                <div className='!w-[33px]'>
+                <div className='w-full'>
                     <Button className='mt-5 ' disabled={!isValid} onClick={onSubmit}> Iniciar Sesión</Button>
                 </div>
             </div>
