@@ -20,7 +20,7 @@ const Header = () => {
 
     ];
     return (
-        <header className='w-full border-b-[1px] border-complementario-70  rounded-br-sm'>
+        <header className='w-full border-b-[1px] border-complementario-70  rounded-br-sm overflow-x-hidden'>
             <nav>
                 <ul className="flex items-center justify-evenly">
                     <Link href={routes.home} className='cursor-pointer'>

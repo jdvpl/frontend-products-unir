@@ -2,10 +2,11 @@
 import Header from '@/components/Header/header'
 import ImageLoader from '@/components/ImageLoader'
 import RegisterForm from '@/components/RegisterForm/RegisterForm';
+import useProtectedRoutes from '@/hooks/useProtectedRoutes';
 import React from 'react'
 
 const RegisterPage = () => {
-
+  useProtectedRoutes()
   return (
     <div className='container'>
       <Header />

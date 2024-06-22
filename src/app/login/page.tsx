@@ -2,7 +2,9 @@
 import Header from '@/components/Header/header'
 import ImageLoader from '@/components/ImageLoader'
 import LoginForm from '@/components/LoginForm/LoginForm';
+import useProtectedRoutes from '@/hooks/useProtectedRoutes';
 const LoginPage = () => {
+  useProtectedRoutes()
   return (
     <div className='container '>
       <Header />

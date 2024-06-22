@@ -1,8 +1,10 @@
+'use client'
 import BannerHome from "@/components/BannerHome/BannerHome";
 import Header from "@/components/Header/header";
-import Image from "next/image";
+import useProtectedRoutes from "@/hooks/useProtectedRoutes";
 
 export default function Home() {
+  useProtectedRoutes()
   return (
     <main >
       <Header/>

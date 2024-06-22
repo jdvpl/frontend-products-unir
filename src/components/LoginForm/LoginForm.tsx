@@ -5,19 +5,32 @@ import { useForm, Controller } from 'react-hook-form';
 import Button from '../Button/Button';
 import {  loginService } from '@/services/authentication';
 import { useSessionStorage } from '@/hooks/useSessionStorage';
+import { useRouter } from 'next/navigation';
+import { routes } from '@/routes';
+import { SessionStorageKeys } from '@/session';
 const LoginForm = () => {
-    const [token, setToken]=useSessionStorage<any>('login',{})
+    const [token, setToken]=useSessionStorage<any>(SessionStorageKeys.login.key,"")
+    const router=useRouter()
     const {
         getValues,
         control,
+        setError,
         formState: { errors, isValid },
     } = useForm<LoginInterface>({ mode: 'onChange' });
     const onSubmit = async() => {
         const data = getValues();
-
-        const {response}=await loginService(data)
-        setToken(response.token)
-        console.log(response)
+        const {response, error}=await loginService(data)
+        if(error){
+            setError('password',{
+                type:'custom',
+                message:response.message
+            })
+            return;
+        }
+        
+        setToken(response.token);
+        router.push(routes.products)
+        
     }
     return (
         <div>
@@ -28,11 +41,8 @@ const LoginForm = () => {
                     rules={{ required: true }}
                     render={({ field }) => (
                         <Input
-                            helperText={errors.username ? 'Este campo es requerido' : 'Digita tu nombre'}
+                            helperText={errors.username?.message}
                             error={!!errors.username}
-                            onPaste={(e: ClipboardEvent<HTMLInputElement>) => {
-                                e.preventDefault();
-                            }}
                             value={field.value || ''}
                             tabIndex={0}
                             id="name"
@@ -54,7 +64,7 @@ const LoginForm = () => {
                         rules={{ required: true }}
                         render={({ field }) => (
                             <Input
-                                helperText={errors.password && 'Este campo es requerido'}
+                                helperText={errors.password?.message}
                                 error={!!errors.password}
                                 onPaste={(e: ClipboardEvent<HTMLInputElement>) => {
                                     e.preventDefault();
