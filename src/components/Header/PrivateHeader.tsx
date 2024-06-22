@@ -1,5 +1,5 @@
+'use client'
 import React, { useState } from 'react'
-import ImageLoader from '../ImageLoader'
 import { routes } from '@/routes';
 import { MenuItem } from './MenuItems';
 import UnirLogo from '../svg/UnirLogo';

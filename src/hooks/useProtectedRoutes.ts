@@ -12,8 +12,6 @@ const useProtectedRoutes = () => {
   const router = useRouter();
   const pathname = usePathname();
    
-  const data=decodeJwt(token);
-  console.log("🚀 ~ useEffect ~ data:", data)
   useEffect(() => {
     if (token && decodeJwt(token)) {
       if (publicRoutes.includes(pathname)) {
