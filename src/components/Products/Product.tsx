@@ -3,6 +3,7 @@ import { productService } from '@/services/product';
 import { SessionStorageKeys } from '@/session';
 import React, { useEffect } from 'react'
 import ProductCard, { Product as ProductP } from '../ProductCard/Product';
+import Aside from '../Aside/Aside';
 
 const Product = () => {
 
@@ -26,6 +27,7 @@ const Product = () => {
     
   return (
     <div className='container mx-auto my-5 flex justify-center'>
+      <Aside/>
       <div className="grid grid-cols-1 md:grid-cols-2 lgsm:grid-cols-3 gap-6 mx-4 items-center">
 
       {products()?.map((item:ProductP) => (

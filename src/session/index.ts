@@ -6,5 +6,9 @@ export const SessionStorageKeys={
     products:{
         key:'unir::b',
         description:'this key saves the products in session storage'
+    },
+    category:{
+        key:'unir::c',
+        description:'this key saves the categoria in session storage'
     }
 }
