@@ -1,30 +1,14 @@
 'use client'
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import ProtectedLayout from '@/components/layout/ProtectedLayout';
-import useProtectedRoutes from '@/hooks/useProtectedRoutes';
-import Category from '@/components/categories/category';
 import { SessionStorageKeys } from '@/session';
+import { useSessionStorage } from '@/hooks/useSessionStorage';
+import { CategoryData, ProductData } from '@/interface/Category';
+import { categoryService } from '@/services/category';
 
-interface ProductData {
-  name: string;
-  price: number;
-  description: string;
-}
-
-interface CategoryData {
-  name: string;
-  description: string;
-  status: boolean;
-  createProduct: boolean;
-  products: ProductData[];
-  newProductName: string;
-  newProductPrice: number;
-  newProductDescription: string;
-}
 
 const CategoryPage = () => {
-  useProtectedRoutes();
-
+  const [token] = useSessionStorage<any>(SessionStorageKeys.login.key, "");
   const [CategoryData, setCategoryData] = useState<CategoryData>({
     name: '',
     description: '',
@@ -80,11 +64,7 @@ const CategoryPage = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const token = sessionStorage.getItem(SessionStorageKeys.login.key);
-
-      if (!token) {
-        throw new Error('Token not found in sessionStorage');
-      }
+      
 
       const sendData = {
         name: CategoryData.name,
@@ -95,18 +75,10 @@ const CategoryPage = () => {
 
       console.log('Enviar datos al servidor:', sendData);
 
-      const response = await fetch('https://whale-app-xj8xk.ondigitalocean.app/category/admin/save', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify(sendData),
-      });
+      const {response, error} = await categoryService(token, sendData);
 
-      if (response.ok) {
-        const data = await response.json();
-        console.log('Respuesta del servidor:', data);
+      if (!error) {
+        console.log('Respuesta del servidor:', response);
         alert('Categoría creada correctamente');
       } else {
         throw new Error('Error al crear la categoría');
@@ -129,7 +101,7 @@ const CategoryPage = () => {
   };
 
   return (
-    <Category>
+    
       <ProtectedLayout>
         <h3>Crear nueva categoría</h3>
         <form onSubmit={handleSubmit} className=''>
@@ -223,7 +195,6 @@ const CategoryPage = () => {
           <button type="submit">Crear Categoría</button>
         </form>
       </ProtectedLayout>
-    </Category>
   );
 };
 
