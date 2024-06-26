@@ -1,12 +1,12 @@
 'use client'
 import React from 'react';
 import ProtectedLayout from '@/components/layout/ProtectedLayout';
-import TableCategory from '@/components/TableCategory/TableCategory';
+import TableProducts from '@/components/TableProduct/TableProducts';
 
 const CategoryPage = () => {
   return (
     <ProtectedLayout>
-      <TableCategory/>
+      <TableProducts/>
     </ProtectedLayout>
   );
 };
