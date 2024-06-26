@@ -13,10 +13,17 @@ export interface Product {
   categoryId: number
 }
 const ProductCard = ({ product }: { product: Product }) => {
+
   return (
     <div>
       <div className="w-full max-w-sm bg-white border border-complementario-60 rounded-lg shadow md:h-[370px] ">
-        <ImageLoader className="w-[350px] h-[220px] object-contain flex justify-center m-auto p-2" src={product.picture} alt="product image" />
+      {product.picture && (
+        <ImageLoader
+          className="w-[350px] h-[220px] object-contain flex justify-center m-auto p-2"
+          src={product.picture}
+          alt="product image"
+        />
+      )}
         <div className="px-5 pb-5">
           <h5 className="text-xl font-semibold tracking-tight text-primario-900 ">{product.name}</h5>
           <p className="mb-3 font-normal text-gray-700">{product.description}</p>

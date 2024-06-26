@@ -16,7 +16,7 @@ const PrivateHeader = () => {
         clearSessionStorages();
         router.push(routes.home)
     }
-    const menuItems = [
+    const menuItemsCLient = [
         {
             id: 2,
             name: 'Productos',
@@ -24,13 +24,27 @@ const PrivateHeader = () => {
         },
         {
             id: 3,
-            name: 'Categorias',
-            href: routes.category,
+            name: 'Carrito',
+            href: routes.shoppingCart,
         },
 
     ];
-    const [token] = useSessionStorage<any>(SessionStorageKeys.login.key, "");
 
+
+    const menuItemsAdmin = [
+        {
+            id: 4,
+            name: 'Categorias',
+            href: routes.createProduct,
+        }
+        
+    ]
+    const menuAdmin = [...menuItemsCLient, ...menuItemsAdmin]
+    const [token] = useSessionStorage<any>(SessionStorageKeys.login.key, "");
+    const  data = decodeJwt(token);
+
+    const role=data.role;
+    const menuItems=role==='ROLE_ADMINISTRATOR'?menuAdmin:menuItemsCLient;
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const toggleMobileMenu = () => {
         setTimeout(() => {
@@ -38,7 +52,6 @@ const PrivateHeader = () => {
         }, 300);
     };
 
-    const  data = decodeJwt(token)
     return (
         <header className='w-full border-b-[1px] border-complementario-70  rounded-br-sm overflow-x-hidden'>
             <nav>
