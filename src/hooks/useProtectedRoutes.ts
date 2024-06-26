@@ -3,7 +3,7 @@
 import { SessionStorageKeys } from "@/session";
 import { useSessionStorage } from "./useSessionStorage";
 import { usePathname, useRouter } from "next/navigation";
-import { publicRoutes, routes } from "@/routes";
+import { publicRoutes, protectedRoutes, routes } from "@/routes";
 import { useEffect } from "react";
 import { decodeJwt } from "@/utils";
 
@@ -14,7 +14,7 @@ const useProtectedRoutes = () => {
    
   useEffect(() => {
     if (token && decodeJwt(token)) {
-      if (publicRoutes.includes(pathname)) {
+      if (!protectedRoutes.includes(pathname)) {
         router.push(routes.products);
       }
     } else {

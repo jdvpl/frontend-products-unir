@@ -6,3 +6,8 @@ export const categoryService = async (
     body:any,
   ): Promise<{ response: any; error: boolean }> =>
     makeRequest('category/admin/save', body,"POST",token);
+export const deletecategoryService = async (
+    token:string,
+    id:any,
+  ): Promise<{ response: any; error: boolean }> =>
+    makeRequest(`category/admin/delete?id=${id}`, {},"DELETE",token);

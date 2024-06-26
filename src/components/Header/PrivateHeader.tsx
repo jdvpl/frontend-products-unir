@@ -35,7 +35,7 @@ const PrivateHeader = () => {
         {
             id: 4,
             name: 'Categorias',
-            href: routes.createProduct,
+            href: routes.categories,
         }
         
     ]

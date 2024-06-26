@@ -9,20 +9,6 @@ const Footer = () => {
     <span className="text-sm text-white sm:text-center">
       © 2024 <a href="https://flowbite.com/" className="hover:underline">UNIR</a>. All Rights Reserved.
     </span>
-    <ul className="flex flex-wrap items-center mt-3 text-sm font-medium text-gray-500 dark:text-gray-400 sm:mt-0">
-      <li>
-        <Link href="#" className="hover:underline me-4 md:me-6 text-white">About</Link>
-      </li>
-      <li>
-        <Link href="#" className="hover:underline me-4 md:me-6 text-white">Privacy Policy</Link>
-      </li>
-      <li>
-        <Link href="#" className="hover:underline me-4 md:me-6 text-white">Licensing</Link>
-      </li>
-      <li>
-        <Link href="#" className="hover:underline text-white">Contact</Link>
-      </li>
-    </ul>
   </div>
 </footer>
 

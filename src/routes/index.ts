@@ -4,12 +4,11 @@ export const routes={
     register:'/register',
     products:'/productos',
     unauthorized:'/no-autorizado',
-    createProduct:'/crear-producto',
+    categories:'/categorias',
     shoppingCart:'/carrito-compras',
 }
 
 
 export const publicRoutes = [routes.login, routes.home, routes.register];
-export const protectedRoutes = [routes.products];
-export const adminRoutes = [ routes.createProduct];
+export const protectedRoutes = [routes.products,routes.shoppingCart,routes.categories];
 

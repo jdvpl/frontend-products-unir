@@ -1,4 +1,4 @@
-import { IsArray, IsBoolean, IsNumber, IsString } from "class-validator"
+import {  IsBoolean, IsNumber, IsString } from "class-validator"
 
 
 export class ProductData {
@@ -8,23 +8,17 @@ export class ProductData {
     price: number;
     @IsString()
     description: string;
+    @IsString()
+    picture: string;
   }
   
   export class CategoryData {
+    @IsString()
+    id: string;
     @IsString()
     name: string;
     @IsString()
     description: string;
     @IsBoolean()
     status: boolean;
-    @IsBoolean()
-    createProduct: boolean;
-    @IsArray()
-    products: ProductData[];
-    @IsString()
-    newProductName: string;
-    @IsNumber()
-    newProductPrice: number;
-    @IsString()
-    newProductDescription: string;
   }

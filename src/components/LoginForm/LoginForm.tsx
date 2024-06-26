@@ -3,27 +3,28 @@ import { LoginInterface } from '../../interface/Authentication';
 import Input from '@/components/Input/Input';
 import { useForm, Controller } from 'react-hook-form';
 import Button from '../Button/Button';
-import {  loginService } from '@/services/authentication';
+import { loginService } from '@/services/authentication';
 import { useSessionStorage } from '@/hooks/useSessionStorage';
 import { useRouter } from 'next/navigation';
 import { routes } from '@/routes';
 import { SessionStorageKeys } from '@/session';
+import Link from 'next/link';
 const LoginForm = () => {
-    const [, setToken]=useSessionStorage<any>(SessionStorageKeys.login.key,"")
-    const router=useRouter()
+    const [, setToken] = useSessionStorage<any>(SessionStorageKeys.login.key, "")
+    const router = useRouter()
     const {
         getValues,
         control,
         setError,
         formState: { errors, isValid },
     } = useForm<LoginInterface>({ mode: 'onChange' });
-    const onSubmit = async() => {
+    const onSubmit = async () => {
         const data = getValues();
-        const {response, error}=await loginService(data)
-        if(error){
-            setError('password',{
-                type:'custom',
-                message:response.message
+        const { response, error } = await loginService(data)
+        if (error) {
+            setError('password', {
+                type: 'custom',
+                message: response.message
             })
             return;
         }
@@ -34,7 +35,7 @@ const LoginForm = () => {
         <div>
             <div className="rounded-xl bg-white p-2 w-full smd:w-[100%] md:w-[73%] lgsm:w-[90%] lg:w-[100%] xl:w-[73%] xxl:w-[400px]  md:px-4   px-3 shadow  ">
 
-                <h2 className='py-4 text-center font-semibold text-[30px]'>Ingresa tus datos</h2>
+                <h2 className='py-4 text-center font-semibold text-[30px]'>Iniciar sesión</h2>
                 <Controller
                     rules={{ required: true }}
                     render={({ field }) => (
@@ -87,6 +88,7 @@ const LoginForm = () => {
                     <Button className='mt-5 ' disabled={!isValid} onClick={onSubmit}> Iniciar Sesión</Button>
                 </div>
             </div>
+            <Link href={routes.register} className='text-primario-300 pt-5'>Aun no tienes cuenta, creala aqui?</Link>
         </div>
     )
 }
