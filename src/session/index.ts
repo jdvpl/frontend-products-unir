@@ -10,5 +10,9 @@ export const SessionStorageKeys={
     category:{
         key:'unir::c',
         description:'this key saves the categoria in session storage'
-    }
+    },
+    cart:{
+        key:'unir::d',
+        description:'this key saves the shopping cart in session storage'
+    },
 }
