@@ -48,7 +48,7 @@ const PrivateHeader = () => {
     const [token] = useSessionStorage<any>(SessionStorageKeys.login.key, "");
     const  data = decodeJwt(token);
 
-    const role=data.role;
+    const role=data?.role;
     const menuItems=role==='ROLE_ADMINISTRATOR'?menuAdmin:menuItemsCLient;
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const toggleMobileMenu = () => {

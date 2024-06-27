@@ -3,7 +3,7 @@ import React from 'react'
 import ImageLoader from '../ImageLoader'
 
 export interface Product {
-  id: number
+  id: string;
   name: string
   price: number
   description: string
@@ -11,6 +11,7 @@ export interface Product {
   picture: string
   status: boolean
   categoryId: number
+  categoryName ?: string
 }
 const ProductCard = ({ product }: { product: Product }) => {
 

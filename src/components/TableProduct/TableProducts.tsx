@@ -2,30 +2,40 @@ import useCategory from '@/hooks/useCategory'
 import React, { useState } from 'react'
 import { FaEdit, FaPlus, FaTrash } from 'react-icons/fa'
 import Modal from '../modal/Modal'
-import AddCategory from '../AddCategory/AddCategory'
-import { deletecategoryService } from '@/services/category'
+
 import { SessionStorageKeys } from '@/session'
 import { useSessionStorage } from '@/hooks/useSessionStorage'
 import Swal from 'sweetalert2'
-import { CategoryData } from '@/interface/Category'
 import useProduct from '@/hooks/useProduct'
 import ImageLoader from '../ImageLoader'
 import { deleteProductService } from '@/services/product'
+import AddProducts from '../AddProduct/AddProducts'
+import { Product } from '../ProductCard/Product'
 
 
 
 const TableProducts = () => {
-    const { categories, setCategories } = useCategory()
+    const { categories } = useCategory()
     const { productsGet, setStoredProducts, storedProducts } = useProduct()
     const [token] = useSessionStorage<any>(SessionStorageKeys.login.key, "");
     const [showCategory, setshowCategory] = useState(false);
     const [isUpdating, setisUpdating] = useState(false)
-    const [CategoryData, setCategoryData] = useState<CategoryData>({
+    const [CategoryData, setCategoryData] = useState<Product>({
         id: '',
         name: '',
         description: '',
         status: true,
+        categoryId: 0,
+        picture: '',
+        price: 0,
+        quantity: 0,
+        categoryName: ''
     });
+
+    const getCategoryName=(id)=>{
+        const category = categories.find(item => item.id === id)
+        return category?.name
+    }
     const handleModal = () => {
         setshowCategory(!showCategory)
         setisUpdating(false)
@@ -34,6 +44,11 @@ const TableProducts = () => {
             name: '',
             description: '',
             status: true,
+            categoryId: 0,
+            picture: '',
+            price: 0,
+            quantity: 0,
+            categoryName:''
         })
     }
     const deleteCategory = async (id) => {
@@ -58,10 +73,12 @@ const TableProducts = () => {
 
     }
 
-    const updateCategory = (category) => {
+    const updateCategory = (product) => {
+        const categoryName = getCategoryName(product.categoryId)
+        const updateProduct = {...product,categoryName}        
         setisUpdating(true)
         setshowCategory(!showCategory)
-        setCategoryData(category)
+        setCategoryData(updateProduct)
     }
     return (
         <div className="relative overflow-x-auto w-max m-auto my-10">
@@ -85,33 +102,39 @@ const TableProducts = () => {
                             Estado
                         </th>
                         <th scope="col" className="px-6 py-3">
+                            Categoria
+                        </th>
+                        <th scope="col" className="px-6 py-3">
                             Acciones
                         </th>
                     </tr>
                 </thead>
                 <tbody>
                     {
-                        productsGet().map(category => (
-                            <tr className="bg-white border border-complementario-70 text-center " key={category.id}>
+                        productsGet().map(product => (
+                            <tr className="bg-white border border-complementario-70 text-center " key={product.id}>
                                 <td className="px-6 py-4 font-medium text-gray-900 border ">
-                                    {category.name}
+                                    {product.name}
                                 </td>
                                 <td className='border'>
-                                    {category.description}
+                                    {product.description}
                                 </td>
                                 <td className='border'>
-                                    {category.price}
+                                    {product.price}
                                 </td>
                                 <td className='border'>
-                                    <ImageLoader src={category.picture} className='w-10 h-10 m-auto' />
+                                    <ImageLoader src={product.picture} className='w-10 h-10 m-auto' />
                                 </td>
                                 <td className='border'>
-                                    {category.status ? 'activo' : 'inactivo'}
+                                    {product.status ? 'activo' : 'inactivo'}
+                                </td>
+                                <td className='border'>
+                                    {getCategoryName(product.categoryId)}
                                 </td>
                                 <td className='border'>
                                     <div className='flex gap-x-2 justify-center'>
-                                        <button onClick={() => updateCategory(category)} className='text-verde-100'><FaEdit /></button>
-                                        <button onClick={() => deleteCategory(category.id)} className='text-rojo-100'><FaTrash /></button>
+                                        <button onClick={() => updateCategory(product)} className='text-verde-100'><FaEdit /></button>
+                                        <button onClick={() => deleteCategory(product.id)} className='text-rojo-100'><FaTrash /></button>
                                     </div>
                                 </td>
                             </tr>
@@ -119,13 +142,13 @@ const TableProducts = () => {
                     }
                 </tbody>
             </table>
-            {/* {
+            {
                 showCategory && (
                     <Modal onclose={handleModal}>
-                        <AddCategory handleModal={handleModal} category={CategoryData} updating={isUpdating} />
+                        <AddProducts handleModal={handleModal} product={CategoryData} updating={isUpdating} />
                     </Modal>
                 )
-            } */}
+            }
         </div>
 
     )

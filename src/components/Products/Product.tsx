@@ -1,7 +1,4 @@
-import { useSessionStorage } from '@/hooks/useSessionStorage';
-import { productService } from '@/services/product';
-import { SessionStorageKeys } from '@/session';
-import React, { useEffect, useState } from 'react';
+import React, {  useState } from 'react';
 import ProductCard, { Product as ProductP } from '../ProductCard/Product';
 import Aside from '../Aside/Aside';
 import useProduct from '@/hooks/useProduct';
