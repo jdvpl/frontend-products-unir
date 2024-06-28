@@ -22,12 +22,6 @@ const PrivateHeader = () => {
             name: 'Productos',
             href: routes.products,
         },
-        {
-            id: 3,
-            name: 'Carrito',
-            href: routes.shoppingCart,
-        },
-
     ];
 
 
