@@ -1,15 +1,10 @@
-import { routes } from '@/routes'
-import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import { FaShoppingCart } from 'react-icons/fa'
 import ImageLoader from '../ImageLoader'
 
 const ModalCart = ({handleCart,carts}) => {
-    const roter=useRouter()
     const [width, setWidth] = useState(0);
-    const gotoShoppingCart=()=>{
-        roter.push(routes.shoppingCart)
-    }
+
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -53,7 +48,7 @@ const ModalCart = ({handleCart,carts}) => {
           </div>
         </div>
         <div className="flex justify-end gap-3 pb-5">
-          <button type="button" className="inline-flex w-full justify-center rounded-md bg-rojo-60 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-rojo-50 sm:ml-3 sm:w-auto" onClick={gotoShoppingCart}>Ver</button>
+
           <button type="button" onClick={handleCart} className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Cerrar</button>
         </div>
         <div className='flex bg-verde-100 w-1/2 h-3 transition-all ease-linear' style={{width:`${width}%`}}></div>
